@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Reports', href: '/reports' },
 ]
 
 const profileMenuItems = [
@@ -18,8 +19,10 @@ const profileMenuItems = [
 export default function Navbar() {
   const pathname = usePathname()
   const [profileOpen, setProfileOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -30,9 +33,18 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault()
+    if (!searchQuery.trim()) return
+    // TODO: implement your search logic here
+    console.log('Searching for:', searchQuery)
+  }
+
   return (
-    <nav className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-50">
-      <div className="flex items-center gap-8">
+    <nav className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-50 gap-4">
+
+      {/* Left — logo + nav links */}
+      <div className="flex items-center gap-8 shrink-0">
         <span className="text-base font-semibold text-gray-900 tracking-tight">
           MyApp
         </span>
@@ -53,7 +65,33 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="relative" ref={dropdownRef}>
+      <form
+        onSubmit={handleSearch}
+        className="flex-1 max-w-md"
+      >
+        <div className="relative">
+          <svg
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search..."
+            className="w-full pl-9 pr-4 py-1.5 text-sm bg-gray-100 border border-transparent rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-gray-300 transition-colors"
+          />
+        </div>
+      </form>
+
+      {/* Right — profile avatar + dropdown */}
+      <div className="relative flex-shrink-0" ref={dropdownRef}>
         <button
           onClick={() => setProfileOpen((prev) => !prev)}
           className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"

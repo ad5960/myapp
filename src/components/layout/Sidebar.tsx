@@ -81,8 +81,7 @@ function SidebarItem({ item }: { item: NavItem }) {
     setFlyoutPos({ top: rect.top, left: rect.right + 6 })
     setFlyoutOpen((prev) => !prev)
   }, [item.children])
-
-  // Close flyout when clicking outside
+  
   useEffect(() => {
     if (!flyoutOpen) return
     function handleClickOutside(e: MouseEvent) {
