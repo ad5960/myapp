@@ -13,9 +13,10 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
-  
+  { label: 'Dashboard', href: '/', icon: '▣' },
+  { label: 'Projects', href: '/projects', icon: '◫' },
   {
-    label: 'Test Suite',
+    label: 'Reports',
     icon: '◈',
     children: [
       { label: 'Monthly summary', href: '/reports/monthly' },
@@ -24,14 +25,12 @@ const navItems: NavItem[] = [
       { label: 'Export data', href: '/reports/export' },
     ],
   },
-  { label: 'Test Execution', href: '/testexecution', icon: '▣' },
-  { label: 'Reports', href: '/reports', icon: '◫' },
-  { label: 'Test Data Manager', href: '/testdatamanager', icon: '◉' },
-  { label: 'Service Virtualization', href: '/servicevirtualization', icon: '◉' },
-  { label: 'SEEA Features', href: '/seeafeatures', icon: '◉' },
-  { label: 'SCM/Artifact Management', href: '/samanagement', icon: '◉' },
-  { label: 'AI Chatbot', href: '/aichatbot', icon: '◉' },
-  { label: 'Contact Us', href: '/contactus', icon: '◉' },
+  { label: 'Team', href: '/team', icon: '◉' },
+]
+
+const settingsItems: NavItem[] = [
+  { label: 'Preferences', href: '/settings/preferences', icon: '◎' },
+  { label: 'Security', href: '/settings/security', icon: '◆' },
 ]
 
 type FlyoutPosition = { top: number; left: number }
@@ -48,14 +47,17 @@ function FlyoutMenu({
   return createPortal(
     <div
       style={{ top: position.top, left: position.left }}
-      className="fixed z-[9999] w-48 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden"
+      className="fixed z-9999 w-48 bg-white border border-indigo-100 rounded-xl shadow-lg overflow-hidden"
+      onMouseDown={(e) => e.stopPropagation()
+        
+      }
     >
       {items.map((item) => (
         <Link
           key={item.href}
           href={item.href}
           onClick={onClose}
-          className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+          className="block px-4 py-2 text-sm text-gray-600 hover:bg-indigo-50 hover:text-indigo-900 transition-colors"
         >
           {item.label}
         </Link>
@@ -81,7 +83,7 @@ function SidebarItem({ item }: { item: NavItem }) {
     setFlyoutPos({ top: rect.top, left: rect.right + 6 })
     setFlyoutOpen((prev) => !prev)
   }, [item.children])
-  
+
   useEffect(() => {
     if (!flyoutOpen) return
     function handleClickOutside(e: MouseEvent) {
@@ -95,15 +97,15 @@ function SidebarItem({ item }: { item: NavItem }) {
 
   const baseClasses = `flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer text-sm transition-colors ${
     isActive
-      ? 'bg-gray-100 text-gray-900 font-medium'
-      : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
+      ? 'bg-indigo-100 text-indigo-900 font-medium'
+      : 'text-slate-500 hover:bg-indigo-50 hover:text-indigo-800'
   }`
 
   if (item.href && !item.children) {
     return (
       <Link href={item.href} className={baseClasses}>
         <span className="flex items-center gap-2.5">
-          <span className="text-xs w-4 text-center opacity-60">{item.icon}</span>
+          <span className="text-xs w-4 text-center opacity-50">{item.icon}</span>
           {item.label}
         </span>
       </Link>
@@ -118,11 +120,11 @@ function SidebarItem({ item }: { item: NavItem }) {
         onClick={toggleFlyout}
       >
         <span className="flex items-center gap-2.5">
-          <span className="text-xs w-4 text-center opacity-60">{item.icon}</span>
+          <span className="text-xs w-4 text-center opacity-50">{item.icon}</span>
           {item.label}
         </span>
         {item.children && (
-          <span className={`text-[9px] text-gray-400 ml-1 transition-transform ${flyoutOpen ? 'rotate-90' : ''}`}>
+          <span className={`text-[9px] text-indigo-300 ml-1 transition-transform duration-200 inline-block ${flyoutOpen ? 'rotate-90' : ''}`}>
             ▶
           </span>
         )}
@@ -141,10 +143,10 @@ function SidebarItem({ item }: { item: NavItem }) {
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 bg-white border-r border-gray-200 flex flex-col flex-shrink-0 overflow-y-auto">
+    <aside className="w-56 bg-slate-50 border-r border-indigo-100 flex flex-col flex-shrink-0 overflow-y-auto">
       <div className="flex-1 px-3 py-4 flex flex-col gap-6">
         <div>
-          <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest px-3 mb-1">
+          <p className="text-[10px] font-medium text-indigo-300 uppercase tracking-widest px-3 mb-1">
             Main
           </p>
           <nav className="flex flex-col gap-0.5">
@@ -154,6 +156,14 @@ export default function Sidebar() {
           </nav>
         </div>
         <div>
+          <p className="text-[10px] font-medium text-indigo-300 uppercase tracking-widest px-3 mb-1">
+            Settings
+          </p>
+          <nav className="flex flex-col gap-0.5">
+            {settingsItems.map((item) => (
+              <SidebarItem key={item.label} item={item} />
+            ))}
+          </nav>
         </div>
       </div>
     </aside>

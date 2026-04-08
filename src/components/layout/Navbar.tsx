@@ -22,7 +22,6 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('')
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -36,16 +35,15 @@ export default function Navbar() {
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
     if (!searchQuery.trim()) return
-    // TODO: implement your search logic here
     console.log('Searching for:', searchQuery)
   }
 
   return (
-    <nav className="h-14 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-50 gap-4">
+    <nav className="h-14 bg-indigo-700 flex items-center justify-between px-6 flex-shrink-0 z-50 gap-4">
 
       {/* Left — logo + nav links */}
-      <div className="flex items-center gap-8 shrink-0">
-        <span className="text-base font-semibold text-gray-900 tracking-tight">
+      <div className="flex items-center gap-8 flex-shrink-0">
+        <span className="text-base font-semibold text-white tracking-tight">
           MyApp
         </span>
         <div className="flex items-center gap-1">
@@ -55,8 +53,8 @@ export default function Navbar() {
               href={link.href}
               className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
                 pathname === link.href
-                  ? 'bg-gray-100 text-gray-900 font-medium'
-                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                  ? 'bg-indigo-900 text-white font-medium'
+                  : 'text-indigo-200 hover:text-white hover:bg-indigo-600'
               }`}
             >
               {link.label}
@@ -65,13 +63,11 @@ export default function Navbar() {
         </div>
       </div>
 
-      <form
-        onSubmit={handleSearch}
-        className="flex-1 max-w-md"
-      >
+      {/* Center — search bar */}
+      <form onSubmit={handleSearch} className="flex-1 max-w-md">
         <div className="relative">
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-indigo-300 pointer-events-none"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -85,7 +81,7 @@ export default function Navbar() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search..."
-            className="w-full pl-9 pr-4 py-1.5 text-sm bg-gray-100 border border-transparent rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-gray-300 transition-colors"
+            className="w-full pl-9 pr-4 py-1.5 text-sm bg-indigo-600 border border-indigo-500 rounded-lg text-white placeholder-indigo-300 focus:outline-none focus:bg-indigo-800 focus:border-indigo-300 transition-colors"
           />
         </div>
       </form>
@@ -94,7 +90,7 @@ export default function Navbar() {
       <div className="relative flex-shrink-0" ref={dropdownRef}>
         <button
           onClick={() => setProfileOpen((prev) => !prev)}
-          className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold flex items-center justify-center hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
+          className="w-8 h-8 rounded-full bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center hover:bg-indigo-400 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 focus:ring-offset-indigo-700"
           aria-label="Open profile menu"
           aria-expanded={profileOpen}
         >
@@ -103,9 +99,9 @@ export default function Navbar() {
 
         {profileOpen && (
           <div className="absolute right-0 top-10 w-52 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
-            <div className="px-4 py-3 border-b border-gray-100">
-              <p className="text-sm font-medium text-gray-900">John Doe</p>
-              <p className="text-xs text-gray-500 mt-0.5">john@company.com</p>
+            <div className="px-4 py-3 border-b border-gray-100 bg-indigo-50">
+              <p className="text-sm font-medium text-indigo-900">John Doe</p>
+              <p className="text-xs text-indigo-400 mt-0.5">john@company.com</p>
             </div>
             <div className="py-1">
               {profileMenuItems.map((item) => (
@@ -113,7 +109,7 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setProfileOpen(false)}
-                  className="flex items-center px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                  className="flex items-center px-4 py-2 text-sm text-gray-600 hover:bg-indigo-50 hover:text-indigo-900 transition-colors"
                 >
                   {item.label}
                 </Link>
