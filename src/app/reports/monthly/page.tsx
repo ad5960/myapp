@@ -1,111 +1,127 @@
-type TermEntry = {
-  term: string
-  definition: string
-}
+import Image from "next/image"
 
-type Section =
-  | { type: 'group'; heading: string; definition?: string; terms: TermEntry[] }
-  | { type: 'standalone'; heading: string; definition: string }
-
-const sections: Section[] = [
-  {
-    type: 'group',
-    heading: 'pocFramework(Root Level Folder)',
-    definition: 'This is root level folder of the framework. This folder has subfolders has follows:',
-    terms: [
-      { term: 'src/main/java', definition: 'This folder is empty. This folder is used by developers to write their code as per Agile methodology. CTDA framework can be integrated with Agile based projects.' },
-      { term: 'Backup', definition: 'This folder is being used to store backup scripts if any.' },
-      { term: 'Function_Library', definition: 'This folder has GenericFunctions & AdvanceFunctions (Mouse and Keyboard actions) class. The class has user defined functions which are called from the script' },
-      { term: 'pocFramework.pocFramework', definition: 'This folder is being used to store scripts which are generated from Agile Designer tool.' },
-      { term: 'Report', definition: 'This folder has extent functionality to generate report after execution.' },
-      { term: 'TestBase', definition: 'This folder has Test Base class which initiates the web driver according to input given from Testing XML i.e Chrome, Firefox or IE. It also quits the web driver instance once the execution is done.' },
-    ],
-  },
-  {
-    type: 'standalone',
-    heading: 'Agent',
-    definition: 'Some definition of Agent.',
-  },
-]
-
-export default function FrameworkFolderStructurePage() {
+export default function ParagraphsWithImagesPage() {
   return (
     <div className="p-10 max-w-3xl">
       {/* Page title */}
       <div className="mb-10">
         <h1 className="text-2xl font-semibold text-slate-800 mb-2">
-          Framework Folder Structure
+          Getting Started Guide
         </h1>
         <p className="text-sm text-slate-400">
-          A reference guide to the folders, modules, and components that make up the framework.
+          An introductory guide covering setup, configuration, and core concepts of the framework.
         </p>
         <div className="mt-4 h-px bg-indigo-100" />
       </div>
 
-      {/* Sections */}
+      {/* Content */}
       <div className="flex flex-col gap-10">
-        {sections.map((section) =>
-          section.type === 'group' ? (
-            <div key={section.heading}>
-              <div className="flex gap-3 mb-4">
-                <span className="w-1 h-5 rounded-full bg-indigo-500 inline-block shrink-0 mt-1" />
-                <p className="text-sm leading-relaxed">
-                  <span className="font-semibold text-indigo-700 tracking-widest text-lg">
-                    {section.heading}
-                  </span>
-                  {section.definition && (
-                    <>
-                      <span className="text-slate-300"> — </span>
-                      <span className="text-slate-500">
-                        {section.definition}
-                      </span>
-                    </>
-                  )}
-                </p>
-              </div>
 
-              <div className="flex flex-col gap-3 pl-4">
-                {section.terms.map((entry, i) => (
-                  <div
-                    key={entry.term}
-                    className="flex gap-4 items-baseline"
-                  >
-                    {/* Index number */}
-                    <span className="text-xs font-medium text-indigo-300 w-5 shrink-0 text-right">
-                      {i + 1}.
-                    </span>
-<p className="text-sm leading-relaxed">
-  <span className="font-semibold text-slate-700">
-    {entry.term}
-  </span>
-  <span className="text-slate-300"> — </span>
-  <span className="text-slate-500">
-    {entry.definition}
-  </span>
-</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 h-px bg-slate-100" />
+        {/* Section 1 */}
+        <div>
+          <div className="flex gap-3 mb-3">
+            <span className="w-1 h-5 rounded-full bg-indigo-500 inline-block flex-shrink-0 mt-1" />
+            <h2 className="font-semibold text-indigo-700 uppercase tracking-widest text-xs">
+              Overview
+            </h2>
+          </div>
+          <div className="pl-4 flex flex-col gap-4">
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae
+              vestibulum vestibulum. Cras venenatis euismod malesuada. Nulla facilisi. Etiam non
+              diam ante. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+              doloremque laudantium.
+            </p>
+            <div className="rounded-lg border border-indigo-100 overflow-hidden bg-slate-50 relative w-full aspect-[7/3]">
+              <Image
+                src="/images/architecture-diagram.png"
+                alt="Architecture Diagram"
+                fill
+                className="object-cover"
+              />
             </div>
-          ) : (
-            <div key={section.heading}>
-              <div className="flex items-center gap-3 mb-1">
-                <span className="w-1 h-5 rounded-full bg-indigo-200 inline-block shrink-0" />
-                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <span className="text-sm font-semibold text-slate-700">
-                    {section.heading}
-                  </span>
-                  <span className="text-slate-300 text-sm">—</span>
-                  <span className="text-sm text-slate-500 leading-relaxed">
-                    {section.definition}
-                  </span>
-                </div>
-              </div>
-              <div className="mt-6 h-px bg-slate-100" />
+            <p className="text-xs text-slate-400 italic -mt-2">
+              Fig 1 — High-level architecture overview of the framework.
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+              beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+              voluptatem sequi nesciunt.
+            </p>
+          </div>
+        </div>
+
+        <div className="h-px bg-slate-100" />
+
+        {/* Section 2 */}
+        <div>
+          <div className="flex gap-3 mb-3">
+            <span className="w-1 h-5 rounded-full bg-indigo-500 inline-block flex-shrink-0 mt-1" />
+            <h2 className="font-semibold text-indigo-700 uppercase tracking-widest text-xs">
+              Installation
+            </h2>
+          </div>
+          <div className="pl-4 flex flex-col gap-4">
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+              laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure
+              reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.
+            </p>
+            <div className="rounded-lg border border-indigo-100 overflow-hidden bg-slate-50 relative w-full aspect-[7/3]">
+              <Image
+                src="/images/installation-steps.png"
+                alt="Installation Steps"
+                fill
+                className="object-cover"
+              />
             </div>
-          )
-        )}
+            <p className="text-xs text-slate-400 italic -mt-2">
+              Fig 2 — Step-by-step installation workflow.
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+              occaecati cupiditate non provident.
+            </p>
+          </div>
+        </div>
+
+        <div className="h-px bg-slate-100" />
+
+        {/* Section 3 */}
+        <div>
+          <div className="flex gap-3 mb-3">
+            <span className="w-1 h-5 rounded-full bg-indigo-500 inline-block flex-shrink-0 mt-1" />
+            <h2 className="font-semibold text-indigo-700 uppercase tracking-widest text-xs">
+              Configuration
+            </h2>
+          </div>
+          <div className="pl-4 flex flex-col gap-4">
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
+              fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
+              cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+              placeat facere possimus.
+            </p>
+            <div className="rounded-lg border border-indigo-100 overflow-hidden bg-slate-50 relative w-full aspect-[7/3]">
+              <Image
+                src="/images/config-file-structure.png"
+                alt="Config File Structure"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <p className="text-xs text-slate-400 italic -mt-2">
+              Fig 3 — Default configuration file structure and key fields.
+            </p>
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et
+              aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
+              repudiandae sint et molestiae non recusandae.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
